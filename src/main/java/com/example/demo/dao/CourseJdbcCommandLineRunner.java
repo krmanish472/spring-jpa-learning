@@ -9,17 +9,26 @@ import org.springframework.stereotype.Component;
 public class CourseJdbcCommandLineRunner implements CommandLineRunner {
 
     @Autowired
-    private CourseJpaRepository courseJpaRepository;
+    private CourseSpringDataJpaRepository courseSpringDataJpaRepository;
 
     @Override
     public void run(String... args) throws Exception {
-        courseJpaRepository.insert(new Course(1, "Learn AWS", "in28minutes"));
-        courseJpaRepository.insert(new Course(2, "Learn Node", "in28minutes"));
-        courseJpaRepository.insert(new Course(3, "Learn Spring", "in28minutes"));
+        courseSpringDataJpaRepository.save(new Course(1, "Learn AWS", "in28minutes"));
+        courseSpringDataJpaRepository.save(new Course(2, "Learn Node", "in28minutes"));
+        courseSpringDataJpaRepository.save(new Course(3, "Learn Spring", "in28minutes"));
 
-        courseJpaRepository.deleteById(2);
+        courseSpringDataJpaRepository.deleteById(2L);
 
-        System.out.println(courseJpaRepository.findById(1));
-        System.out.println(courseJpaRepository.findById(3));
+        System.out.println(courseSpringDataJpaRepository.findById(1L));
+        System.out.println(courseSpringDataJpaRepository.findById(3L));
+
+        System.out.println(courseSpringDataJpaRepository.findAll());
+        System.out.println(courseSpringDataJpaRepository.count());
+
+        System.out.println(courseSpringDataJpaRepository.findByAuthor("in28minutes"));
+        System.out.println(courseSpringDataJpaRepository.findByAuthor("Manish"));
+
+        System.out.println(courseSpringDataJpaRepository.findByName("Learn Spring"));
+
     }
 }
